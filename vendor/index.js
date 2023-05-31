@@ -1,22 +1,11 @@
 'use strict';
 
 const eventPool = require('../eventPool');
+const { handleReadyForPickup, handleDelivered } = require('./handler');
 
-let handleReadyForPickup = (payload) => {
-  setTimeout(() => {
-    console.log('<<<<<<<<<<<<<<<<<<<< new pickup begin >>>>>>>>>>>>>>>>>>>>');
-    eventPool.emit('EVENT', 'pickup', payload);
-    eventPool.emit('pickup', payload);
-  }, 3500);
-};
+setInterval(() => {
+  console.log('========================== NEW SHIPMENT IN PROGRESS ==========================')
+  handleReadyForPickup();
+}, 5250);
 
-let handleDelivered = (payload) => {
-  setTimeout(() => {
-    eventPool.emit('delivered', payload);
-  }, 1000);
-}
-
-module.exports = {
-  handleReadyForPickup,
-  handleDelivered
-};
+eventPool.on('delivered', handleDelivered);
