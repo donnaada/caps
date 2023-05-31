@@ -2,7 +2,7 @@
 
 let eventEmitter = require('../eventPool');
 
-const { orderHandler, thankDriver } = require('./handler');
+const { handleReadyForPickup, handleDelivered } = require('./handler');
 
 jest.mock('../eventPool.js', () => {
   return {
@@ -11,37 +11,30 @@ jest.mock('../eventPool.js', () => {
   };
 });
 
-let consoleSpy;
-
-beforeAll(() => {
-  consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-});
-
-afterAll(() => {
-  consoleSpy.mockRestore();
-});
-
 describe('Vendor handlers', () => {
 
   test('Should log correct emit and console log for orderHandler', () => {
     let payload = {
-      orderId: 12345,
+      store: '1-206-flowers',
+      orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
+      customer: 'Adrian Murray',
+      address: 'Dultezwo, CO'
     };
 
-    orderHandler(payload);
+    handleReadyForPickup(payload);
 
-    expect(consoleSpy).toHaveBeenCalledWith('VENDOR: ORDER ready for pickup:', payload);
     expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
   });
 
-  test('Should log correct emit and console log for thankDriver', () => {
+  test('Should log thank you message from Vendor to Driver', () => {
     let payload = {
-      customer: 'Test Test',
+      store: '1-206-flowers',
+      orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
+      customer: 'Adrian Murray',
+      address: 'Dultezwo, CO'
     };
-
-    thankDriver(payload);
-
-    expect(consoleSpy).toHaveBeenCalledWith('VENDOR: Thank you for your order', payload.customer);
+    handleDelivered(payload);
+    expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
   });
 
 });
