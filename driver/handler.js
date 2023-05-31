@@ -8,7 +8,7 @@ let handleDriverPickup = (payload) => {
   eventPool.emit('in-transit', payload);
 };
 
-let handleInTransit = (payload) => {
+let handleDriverDelivered = (payload) => {
   console.log(`DRIVER: delivered up ${payload.orderID}`);
   console.log(`VENDOR: Thank you for delivering ${payload.orderID}`);
 
@@ -22,12 +22,12 @@ let handleShipping = (payload) => {
   }, 1500);
 
   setTimeout(() => {
-    handleInTransit(payload);
+    handleDriverDelivered(payload);
   }, 2000);
 };
 
 module.exports = {
   handleDriverPickup,
-  handleInTransit,
+  handleDriverDelivered,
   handleShipping,
 };

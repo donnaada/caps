@@ -1,7 +1,7 @@
 'use strict';
 
 let eventPool = require('../eventPool');
-const { handleDriverPickup, handleInTransit } = require('./handler');
+const { handleDriverPickup, handleDriverDelivered } = require('./handler');
 
 jest.mock('../eventPool.js', () => {
   return {
@@ -11,9 +11,9 @@ jest.mock('../eventPool.js', () => {
 });
 
 
-describe('Testing driver handlers', () => {
+describe('Testing driver handler', () => {
 
-  test('Should log and emit in-transit after pick up occurs', () => {
+  test('testing pickup handler', () => {
     let payload = {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
@@ -26,14 +26,14 @@ describe('Testing driver handlers', () => {
   });
 
 
-  test('should emit delivered and log Driver delivery ', () => {
+  test('testing delivered handler', () => {
     let payload = {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
       customer: 'Adrian Murray',
       address: 'Dultezwo, CO'
     };
-    handleInTransit(payload);
+    handleDriverDelivered(payload);
 
     expect(eventPool.emit).toHaveBeenCalledWith('delivered', payload);
   });
