@@ -1,33 +1,15 @@
 'use strict';
 
 const eventPool = require('./eventPool');
-const Chance = require('chance');
-let chance = new Chance();
-let timestamp = new Date().toISOString();
+const timestamp = new Date().toISOString();
 
-const { handleReadyForPickup, handleDelivered } = require('./vendor');
-const { handlerDriverPickup, handleInTransit } = require('./driver');
+require('./vendor/index');
+require('./driver/index');
 
+eventPool.on('pickup', (payload) => logger('pickup', payload));
+eventPool.on('in-transit', (payload) => logger('in-transit', payload));
+eventPool.on('delivered', (payload) => logger('delivered', payload));
 
-const payload = {
-  store: '1-206-flowers',
-  orderID: chance.guid(),
-  customer: chance.name(),
-  address: `${chance.city()}, ${chance.state()}`,
+function logger(event, payload){
+  console.log('EVENT: ', { event, timestamp, payload });
 }
-
-handleReadyForPickup(payload);
-eventPool.on('pickup', handlerDriverPickup);
-eventPool.on('in-transit', handleDelivered);
-eventPool.on('delivered', handleInTransit);
-eventPool.on('EVENT', (event, payload) => {
-  console.log(`EVENT: { event: '${event}', 
-    time: ${timestamp}, 
-    payload: 
-    { store: '${payload.store}',
-      orderID: '${payload.orderID}',
-      customer: '${payload.customer}',
-      address: '${payload.address}'}}
-  `);
-});
-
