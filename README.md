@@ -1,4 +1,4 @@
-# LAB - Class 11
+# LAB - Class 11 & 12
 
 ## Project: CAPS - The Code Academy Parcel Service
 
@@ -10,15 +10,17 @@ Begin the build of an application for a product called CAPS - The Code Academy P
 
 This will be an event driven application that “distributes” the responsibility for logging to separate modules, using only events to trigger logging based on activity.
 
+Lab 12: Incoporate the use of Socket.IO
+
 ### Links and Resources
 
 - [GitHub Actions ci/cd](https://github.com/donnaada/caps/actions)
-- [back-end server url](https://api-server-6a4s.onrender.com)
--
 
-### Collaborators
+### Collaborators & Contributors
 
-Referenced Ryan Gallaway's Demo Code
+Ryan Gallaway
+Reece Renninger
+Kaeden O'Meara
 
 ### Setup
 

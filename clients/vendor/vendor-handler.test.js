@@ -1,12 +1,14 @@
 'use strict';
 
-let eventEmitter = require('../eventPool');
+// let eventEmitter = require('../eventPool');
+const { io } = require('socket.io-client');
+const socket = io(`http://localhost:4001/caps`)
 
 const { handleReadyForPickup, handleDelivered } = require('./handler');
 
-jest.mock('../eventPool.js', () => {
+jest.mock('../../eventPool.js', () => {
   return {
-    on: jest.fn(),
+    on: socket.on,
     emit: jest.fn(),
   };
 });
@@ -23,7 +25,7 @@ describe('Vendor handlers', () => {
 
     handleReadyForPickup(payload);
 
-    expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
+    expect(socket.emit).toHaveBeenCalledWith('pickup', payload);
   });
 
   test('Should log thank you message from Vendor to Driver', () => {
@@ -34,7 +36,7 @@ describe('Vendor handlers', () => {
       address: 'Dultezwo, CO'
     };
     handleDelivered(payload);
-    expect(eventEmitter.emit).toHaveBeenCalledWith('pickup', payload);
+    expect(socket.emit).toHaveBeenCalledWith('pickup', payload);
   });
 
 });
