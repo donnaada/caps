@@ -1,27 +1,28 @@
 'use strict';
 
-let eventPool = require('../eventPool');
+const { io } = require('socket.io-client');
+const socket = io(`http://localhost:4001/caps`)
 
 let handleDriverPickup = (payload) => {
-  console.log(`DRIVER: picked up ${payload.orderID}`);
+  console.log(`DRIVER: Picking up ${payload.orderID}`);
 
-  eventPool.emit('in-transit', payload);
+  socket.emit('in-transit', payload);
 };
 
 let handleDriverDelivered = (payload) => {
-  console.log(`DRIVER: delivered up ${payload.orderID}`);
-  console.log(`VENDOR: Thank you for delivering ${payload.orderID}`);
-
-  eventPool.emit('delivered', payload);
+  socket.emit('delivered', payload);
 };
 
 let handleShipping = (payload) => {
 
   setTimeout(() => {
+    console.log(` Order for ${payload.customer} is on its way.`);
+
     handleDriverPickup(payload);
   }, 1500);
 
   setTimeout(() => {
+    console.log(`Order for ${payload.customer} has been delivered! -Driver.`);
     handleDriverDelivered(payload);
   }, 2000);
 };

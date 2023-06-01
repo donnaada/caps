@@ -1,6 +1,6 @@
 'use strict';
 
-let eventPool = require('../eventPool');
+let eventPool = require('../../eventPool');
 const { handleDriverPickup, handleDriverDelivered } = require('./handler');
 
 jest.mock('../eventPool.js', () => {
