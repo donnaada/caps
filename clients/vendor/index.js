@@ -1,15 +1,18 @@
 'use strict';
-
-const { handleReadyForPickup, handleDelivered } = require('./handler');
-
 const { io } = require('socket.io-client');
 const socket = io(`http://localhost:4001/caps`)
 
-socket.emit('Join', 'caps')
+const { handleReadyForPickup, thankDriver } = require('./handler');
+
+socket.emit('join', 'caps')
 
 setInterval(() => {
   console.log('========================== NEW SHIPMENT IN PROGRESS ==========================')
-  handleReadyForPickup();
+  handleReadyForPickup(socket);
 }, 5250);
 
-socket.on('delivered', handleDelivered);
+socket.on('delivered', (payload) =>{
+  setTimeout(() => {
+    thankDriver(payload);
+  }, 1000);
+});

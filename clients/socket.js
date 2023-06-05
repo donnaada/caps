@@ -14,9 +14,9 @@ server.on('connection', (socket) => {
   console.log(`Connection established on event server ${socket.id}`);
 
   socket.on('Message', (payload) => {
-    console.log(`SERVER EVENT`, payload)
+    console.log(`SERVER EVENT`, payload);
 
-    socket.broadcast.emit('Message', payload)
+    socket.broadcast.emit('Message', payload);
   });
 
   socket.on('Received', (payload) => {
