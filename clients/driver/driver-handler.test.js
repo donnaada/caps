@@ -18,7 +18,7 @@ describe('Testing driver handler', () => {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
       customer: 'Adrian Murray',
-      address: 'Dultezwo, CO'
+      address: 'Dultezwo, CO',
     };
     handleDriverPickup(payload);
 
@@ -31,7 +31,7 @@ describe('Testing driver handler', () => {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
       customer: 'Adrian Murray',
-      address: 'Dultezwo, CO'
+      address: 'Dultezwo, CO',
     };
     handleDriverDelivered(payload);
 

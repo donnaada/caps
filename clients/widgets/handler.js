@@ -6,7 +6,7 @@
 const Chance = require('chance');
 let chance = new Chance();
 
-let storeName = '1-206-flowers';
+let storeName = 'acme-widgets';
 
 const handleReadyForPickup = (socket, order=null) => {
   if(!order){
@@ -29,15 +29,9 @@ const handleReadyForPickup = (socket, order=null) => {
   socket.emit('pickup', payload);
 };
 
-const thankDriver = (payload) => console.log('VENDOR: Thank you for your order', payload);
-
-// let handleDelivered = (payload) => {
-//   setTimeout(() => {
-//     socket.emit(payload);
-//   }, 1500);
-// }
+const thankDriver = (payload) => console.log('VENDOR: Thank you for your order', payload.order.customer);
 
 module.exports = {
   handleReadyForPickup,
-  thankDriver
+  thankDriver,
 };
