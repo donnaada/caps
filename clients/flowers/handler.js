@@ -39,5 +39,5 @@ const thankDriver = (payload) => console.log('VENDOR: Thank you for your order',
 
 module.exports = {
   handleReadyForPickup,
-  thankDriver
+  thankDriver,
 };

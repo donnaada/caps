@@ -2,7 +2,7 @@
 
 // let eventEmitter = require('../eventPool');
 const { io } = require('socket.io-client');
-const socket = io(`http://localhost:4001/caps`)
+const socket = io(`http://localhost:4001/caps`);
 
 const { handleReadyForPickup, handleDelivered } = require('./handler');
 
@@ -20,7 +20,7 @@ describe('Vendor handlers', () => {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
       customer: 'Adrian Murray',
-      address: 'Dultezwo, CO'
+      address: 'Dultezwo, CO',
     };
 
     handleReadyForPickup(payload);
@@ -33,7 +33,7 @@ describe('Vendor handlers', () => {
       store: '1-206-flowers',
       orderID: '333d575e-c4e5-5567-8b47-5a08a4327bd8',
       customer: 'Adrian Murray',
-      address: 'Dultezwo, CO'
+      address: 'Dultezwo, CO',
     };
     handleDelivered(payload);
     expect(socket.emit).toHaveBeenCalledWith('pickup', payload);
